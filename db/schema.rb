@@ -15,19 +15,12 @@ ActiveRecord::Schema.define(version: 20170809184600) do
   create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
+    t.string "username", limit: 25, null: false
+    t.string "password", null: false
     t.integer "age", null: false
     t.string "email", null: false
     t.string "client_type"
     t.date "date_of_birth"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "logins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer "client_id", null: false
-    t.string "username", null: false
-    t.string "password", null: false
-    t.datetime "last_login", default: "2017-08-09 19:21:02", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

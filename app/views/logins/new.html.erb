@@ -1,0 +1,22 @@
+<div class="login">
+  <h2>Login</h2>
+
+  <%= form_for(@client, :url => logins_path, :method => 'post') do |f| %>
+
+    <table summary="Login form fields">
+      <tr>
+        <th>Username</th>
+        <td><%= f.text_field(:username) %></td>
+      </tr>
+        <th>Password</th>
+        <td><%= f.password_field(:password) %></td>
+      </tr>
+    </table>
+
+    <div class="form-buttons">
+      <%= f.submit("Login") %>
+      <%= link_to("Register new client", new_registration_path) %>
+    </div>
+
+  <% end %>
+</div>

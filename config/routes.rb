@@ -1,10 +1,53 @@
 Rails.application.routes.draw do
-  
-  root 'chatapp#login'
 
-  get 'chatapp/login'
+  root 'logins#new'
 
-  get 'chatapp/register'
+  resources :logins do
+  	member do
+  		get :delete
+  	end
+  end
+
+  resources :registrations do
+  	member do
+  		get :delete
+  	end
+  end
+
+  resources :clients do
+  	member do
+  		get :delete
+  	end
+  end
+
+
+  #get 'clients/new'
+
+  #get 'clients/create'
+
+  #get 'clients/show'
+
+  #get 'registrations/new'
+
+  #get 'registrations/create'
+
+  #get 'registrations/show'
+
+  #get 'logins/new'
+
+  #get 'logins/create'
+
+  #get 'logins/show'
+
+  #get 'client/home'
+
+  #get 'client/chats'
+
+  #get 'login/login'
+
+  #get 'registration/register'
+
+  #post 'logins/auth_login'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

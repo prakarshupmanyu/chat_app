@@ -1,3 +1,7 @@
 class Client < ApplicationRecord
-	has_one :login
+	scope :login_check, lambda { |username, password| where(:username => username, :password => password)}
+
+	validates_presence_of :username
+	validates_presence_of :password
+
 end
