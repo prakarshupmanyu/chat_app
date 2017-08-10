@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This work is being done on RoR version 5.1.3 and ruby version 2.4.0.
 
-Things you may want to cover:
+Make sure the following MySql database have been creatd before trying to run the code. I might have missed out a few things for which I apologize in advance.
 
-* Ruby version
+Create databases and database users:
 
-* System dependencies
+create database chat_app_development;
 
-* Configuration
+create database chat_app_test;
 
-* Database creation
+grant all privileges on chat_app_development.* to 'chat_app_user'@'localhost' identified by 'P@ssw0rd';
 
-* Database initialization
+grant all privileges on chat_app_test.* to 'chat_app_user'@'localhost' identified by 'P@ssw0rd';
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
