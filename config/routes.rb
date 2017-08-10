@@ -2,22 +2,24 @@ Rails.application.routes.draw do
 
   root 'logins#new'
 
+  get 'logins/logout'
+
   resources :logins do
   	member do
   		get :delete
   	end
   end
 
-  resources :registrations do
-  	member do
-  		get :delete
-  	end
+  resources :clients do
+    member do
+      get :delete
+    end
   end
 
-  resources :clients do
-  	member do
-  		get :delete
-  	end
+  resources :chats do
+    member do
+      get :delete
+    end
   end
 
 

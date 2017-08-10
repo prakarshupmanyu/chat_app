@@ -18,7 +18,13 @@
 
   <% if !flash[:error].blank? %>
     <div class="error" style="color:red;">
-     <%= flash[:error] %>
+        <%= flash[:error] %>
+    </div>
+  <% end %>
+
+  <% if !session[:user_id].blank? %>
+    <div style="float:right;">
+     <%= link_to('Logout', logins_logout_path) %>
     </div>
   <% end %>
 

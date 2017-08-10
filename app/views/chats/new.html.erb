@@ -1,0 +1,33 @@
+<div class="new_chat">
+
+  <% if @no_more_users_to_chat.present? %>
+  <div>
+    <%= @no_more_users_to_chat %> <br>
+    <%= link_to('<< Go Back', client_path(@sender_id)) %>
+  </div>
+
+  <% else %>
+
+  <h2>Start a new chat</h2>
+
+  <%= form_for(@message, :url => chats_path, :method => 'post') do |f| %>
+
+    <table summary="New chat form fields">
+      <tr>
+        <th>Chat with: </th>
+        <td><%= f.select(:receiver, @ncc.map {|c| [c.first_name+" ("+c.client_type+")", c.id]}) %>
+          <%= f.hidden_field(:sender, value: @sender_id) %></td>
+
+      </tr>
+        <th>Message</th>
+        <td><%= f.text_area(:message) %></td>
+      </tr>
+    </table>
+
+    <div class="form-buttons">
+      <%= f.submit("Send chat") %>
+    </div>
+
+  <% end %>
+  <% end %>
+</div>

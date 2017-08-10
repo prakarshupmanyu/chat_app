@@ -1,2 +1,29 @@
-<h1>Clients#show</h1>
-<p>Find me in app/views/clients/show.html.erb</p>
+<div class="profile show">
+  <h2>Welcome <%= @client.first_name %>!!!</h2>
+
+  <table summary="Client detail view">
+    <tr>
+      <th>Name</th>
+      <td><%= @client.first_name+" "+@client.last_name %></td>
+    </tr>
+    <tr>
+      <th>Date of Birth</th>
+      <td><%= @client.date_of_birth %></td>
+    </tr>
+    <tr>
+      <th>Type</th>
+      <td><%= @client.client_type %></td>
+    </tr>
+    <tr>
+      <th>Age</th>
+      <td><%= @client.age %></td>
+    </tr>
+    <tr>
+      <th>Email</th>
+      <td><%= @client.email %></td>
+    </tr>
+  </table>
+
+</div>
+
+<%= link_to("See your chats", chat_path(@client.id)) %>

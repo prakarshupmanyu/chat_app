@@ -1,2 +1,46 @@
-<h1>Clients#new</h1>
-<p>Find me in app/views/clients/new.html.erb</p>
+<div class="registration">
+  <h2>Registration</h2>
+
+  <%= form_for(@client, :url => clients_path, :method => 'post') do |f| %>
+    <%= show_error_messages(f.object) %>
+    <table summary="Login form fields">
+      <tr>
+        <th>First Name</th>
+        <td><%= f.text_field(:first_name) %></td>
+      </tr>
+      <tr>
+        <th>Last Name</th>
+        <td><%= f.text_field(:last_name) %></td>
+      </tr>
+      <tr>
+        <th>Age</th>
+        <td><%= f.text_field(:age) %></td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td><%= f.text_field(:email) %></td>
+      </tr>
+      <tr>
+        <th>Client Type</th>
+        <td><%= f.select(:client_type, ['USER', 'TRAINER']) %></td>
+      </tr>
+      <tr>
+        <th>Date of Birth</th>
+        <td><%= f.date_select(:date_of_birth, :order => [:month, :day, :year], :start_year => 1970, :end_year => Time.now.year) %></td>
+      </tr>
+      <tr>
+        <th>Username</th>
+        <td><%= f.text_field(:username) %></td>
+      </tr>
+        <th>Password</th>
+        <td><%= f.password_field(:password) %></td>
+      </tr>
+    </table>
+
+    <div class="form-buttons">
+      <%= f.submit("Register") %>
+      <%= link_to("Existing client login", new_login_path) %>
+    </div>
+
+  <% end %>
+</div>

@@ -1,0 +1,24 @@
+<% if !@no_chat_message.blank? %>
+    <div >
+     <%= @no_chat_message %>
+    </div><br>
+<% end %>
+
+<% if !@chat_clients.blank? %>
+    <div >
+    <h4>You have chatted with following clients in the past. You can click on any one of them and continue.</h4>
+    
+    <% @chat_clients.each do |cc| %>
+    
+    <div>
+    	<%= cc.first_name+" "+cc.last_name+" ("+cc.client_type+")" %>
+    </div>
+    
+    <% end %>
+
+    </div>
+<% end %>
+<br><br>
+<div class="new_chat_button">
+	You can start a new chat <%= link_to("here", new_chat_path(:id => @user_id)) %>
+</div>

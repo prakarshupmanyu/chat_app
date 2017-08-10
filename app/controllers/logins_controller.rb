@@ -7,19 +7,31 @@ class LoginsController < ApplicationController
 
   #To authenticate login
   def create
-  	@login_details = Client.login_check(params[:client][:username], params[:client][:password])
 
-  	if !@login_details.blank?
-		  redirect_to(client_path(@login_details[0].id))
-	  else
-		  flash[:error] = 'Invalid Username or Password'
-		  redirect_to('/')
-	  end
+    if params[:client][:username].present? && params[:client][:password].present?
+  	  
+      @login_details = Client.login_check(params[:client][:username]).first
 
+  	  if @login_details && @login_details.authenticate(params[:client][:password])
+        session[:user_id] = @login_details.id
+        flash[:notice] = "You are now logged in"
+		    redirect_to(client_path(@login_details.id))
+	    else
+		    flash[:error] = 'Invalid Username or Password'
+		    redirect_to('/')
+	    end
+    else
+      flash[:error] = "Please provide both username and password"
+      redirect_to('/')
+    end
   end
 
-  def show
+  def logout
+    session[:user_id] = nil
+    flash[:notice] = 'Logged out'
+    redirect_to('/')
   end
+
 
 private
 
