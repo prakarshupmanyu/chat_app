@@ -5,6 +5,7 @@ class ChatsController < ApplicationController
   def new
   	@message = Message.new(:message => "Hi! Let's chat.")
   	#for new chat
+    @page_title = "New chat"
     @ecc, @chat_ids = existing_chat_details(params[:id])
     if @ecc.blank?
       exclude_client_id_string = params[:id]
@@ -51,6 +52,7 @@ class ChatsController < ApplicationController
       redirect_to(chat_path(session[:user_id]))
     end
 
+    @page_title = "Your chats"
     #get the client ID comma separated string with which the currently logged in client
   	@client_ids, @chat_ids = existing_chat_details(params[:id])
     @user_id = params[:id]
@@ -81,6 +83,7 @@ class ChatsController < ApplicationController
       @chat_client_name[@chat_details.client1] = Client.find_by_id(@chat_details.client1).first_name
       @other_user_id = @chat_details.client1
     end
+    @page_title = "Your chat with #{@chat_client_name[@other_user_id]}"
     @msg = Message.new
   end
 

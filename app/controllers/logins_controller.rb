@@ -3,6 +3,7 @@ class LoginsController < ApplicationController
   #To display the login form
   def new
   	@client = Client.new
+    @page_title = "Login"
   end
 
   #To authenticate login

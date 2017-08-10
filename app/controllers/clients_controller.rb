@@ -5,6 +5,7 @@ class ClientsController < ApplicationController
   #Display the registration form
   def new
   	@client = Client.new
+    @page_title = "Registration"
   end
 
   #Save registration details
@@ -23,6 +24,7 @@ class ClientsController < ApplicationController
   def show
     #puts(session[:user_id])
   	@client = Client.find_by_id(params[:id])
+    @page_title = "Home"
     if @client.blank?
       redirect_to('/404.html')
     end
