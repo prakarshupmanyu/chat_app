@@ -45,6 +45,12 @@ class ChatsController < ApplicationController
   end
 
   def show
+
+    if session[:user_id] != params[:id].to_i
+      flash[:notice] = "You are not allowed to view chat list of other clients."
+      redirect_to(chat_path(session[:user_id]))
+    end
+
     #get the client ID comma separated string with which the currently logged in client
   	@client_ids = existing_chat_clients(params[:id])
     @user_id = params[:id]
@@ -53,12 +59,29 @@ class ChatsController < ApplicationController
   		@no_chat_message = "Sorry! We can't find any chat where you are involved."
   	else
   		#show chats. collect all client IDs with whom the user has chatted
-      @chat_clients = Client.where(["id IN (?)", @client_ids])
+      
+      @chat_clients = Client.where("id IN (#{@client_ids})")
     end
   end
 
   def edit
-    @chat_id = params[:chat_id]
+    @chat_id = params[:id]
+    @messages = Message.get_chat_messages(@chat_id)
+    @curr_user_id = session[:user_id]
+
+    @chat_client_name = {}
+    @chat_client_name[@curr_user_id] = Client.find_by_id(@curr_user_id).first_name
+
+    @chat_details = Chat.find_by_id(@chat_id)
+    
+    if @curr_user_id == @chat_details.client1
+      @chat_client_name[@chat_details.client2] = Client.find_by_id(@chat_details.client2).first_name
+      @other_user_id = @chat_details.client2
+    else
+      @chat_client_name[@chat_details.client1] = Client.find_by_id(@chat_details.client1).first_name
+      @other_user_id = @chat_details.client1
+    end
+    @msg = Message.new
   end
 
   private
@@ -83,7 +106,7 @@ class ChatsController < ApplicationController
     end
     client_ids = ''
     if !@c_ids.blank?
-     client_ids = @c_ids.join(",")
+      client_ids = @c_ids.uniq.join(",")
     end
     client_ids
   end

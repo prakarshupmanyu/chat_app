@@ -22,6 +22,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :messages do
+    member do
+      get :delete
+    end
+  end
+
 
   #get 'clients/new'
 

@@ -1,0 +1,39 @@
+<%= link_to("<<<< Home", client_path(@curr_user_id)) %><br><br>
+
+<div style="width: 700px; margin: 0 auto;">
+Your chat with <%= @chat_client_name[@other_user_id] %>
+</div>
+<div style="width: 700px; height: 500px; margin: 0 auto; border-style: solid;">
+<% @messages.each do |m| %>
+	<% if m.sender == @curr_user_id %>
+		<div style="float:right;">
+			You: <%= m.message %>
+		</div>
+	<% else %>
+		<div style="float:left;">
+			<%= @chat_client_name[m.sender] + ": " + m.message %>
+		</div>
+	<% end %>
+	<br><hr>
+<% end %>
+
+</div>
+
+<div style="width: 700px; margin: 0 auto;">
+<%= form_for(@msg, :url => messages_path, :method => 'post') do |f| %>
+
+    <table summary="New chat form fields">
+        <th>Message</th>
+        <td><%= f.text_area(:message, :size => "50x2") %></td>
+      </tr>
+      <%= f.hidden_field(:sender, value: @curr_user_id) %>
+      <%= f.hidden_field(:receiver, value: @other_user_id) %>
+      <%= f.hidden_field(:chat_id, value: @chat_id) %>
+    </table>
+
+    <div class="form-buttons">
+      <%= f.submit("Send chat") %>
+    </div>
+
+  <% end %>
+</div>

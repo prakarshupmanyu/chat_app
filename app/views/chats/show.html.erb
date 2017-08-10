@@ -10,13 +10,14 @@
 <% if !@chat_clients.blank? %>
     <div >
     <h4>You have chatted with following clients in the past. You can click on any one of them and continue.</h4>
-    
+    <hr>
     <% @chat_clients.each do |cc| %>
     
     <div>
-    	<%= cc.first_name+" "+cc.last_name+" ("+cc.client_type+")" %>
+    	<% name = cc.first_name+" "+cc.last_name+" ("+cc.client_type+")" %>
+    	<%= link_to(name, edit_chat_path(2)) %>
     </div>
-    
+    <hr>
     <% end %>
 
     </div>
