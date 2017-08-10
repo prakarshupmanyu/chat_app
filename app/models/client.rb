@@ -6,7 +6,6 @@ class Client < ApplicationRecord
 
 	scope :login_check, lambda { |username| where(:username => username)}
 
-
 	EMAIL_REGEX = /\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\Z/i
 
 	validates :first_name, :presence => true, :length => { :maximum => 40 }

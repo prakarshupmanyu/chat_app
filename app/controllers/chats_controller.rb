@@ -6,6 +6,12 @@ class ChatsController < ApplicationController
   	@message = Message.new(:message => "Hi! Let's chat.")
   	#for new chat
     @ecc = existing_chat_clients(params[:id])
+    if @ecc.blank?
+      exclude_client_id_string = params[:id]
+    else
+      exclude_client_id_string = @ecc + "," + params[:id]
+    end
+    @ncc = get_new_chat_clients(exclude_client_id_string)
     if @ncc.blank?
       @no_more_users_to_chat = "We couldn't find any more users to chat. Either you already have an existing chat with all of them or you are too lonely :P"
     end
@@ -25,8 +31,10 @@ class ChatsController < ApplicationController
         redirect_to(new_chat_path)
       else
         #message sent successfully. Show chat page
-        flash[:notice] = "Your chat with #{message.receiver} has started."
-        redirect_to(edit_chat_path(m.chat_id))
+        receiver = Client.find_by_id(message.receiver)
+        receiver_name = receiver.first_name + " (" + receiver.client_type + ")"
+        flash[:notice] = "Your chat with #{receiver_name} has started."
+        redirect_to(edit_chat_path(m[0].chat_id))
       end
     else
       #Chat could not be saved successfully

@@ -1,9 +1,11 @@
+<%= link_to("<< Go Back", chat_path(@sender_id)) %><br><br>
+
 <div class="new_chat">
 
   <% if @no_more_users_to_chat.present? %>
   <div>
     <%= @no_more_users_to_chat %> <br>
-    <%= link_to('<< Go Back', client_path(@sender_id)) %>
+    <%= link_to('<< Go Back', chat_path(@sender_id)) %>
   </div>
 
   <% else %>
