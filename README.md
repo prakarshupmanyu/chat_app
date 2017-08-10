@@ -1,24 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1 - Create databases and database users:
 
-Things you may want to cover:
+create database chat_app_development;
+create database chat_app_test;
+grant all privileges on chat_app_development.* to 'chat_app_user'@'localhost' identified by 'P@ssw0rd';
+grant all privileges on chat_app_test.* to 'chat_app_user'@'localhost' identified by 'P@ssw0rd';
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+2 - Uncomment bcrypt from Gemfile and run bundle install. This is for Blowfish encryption.
