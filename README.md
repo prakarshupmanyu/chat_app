@@ -14,3 +14,6 @@ grant all privileges on chat_app_development.* to 'chat_app_user'@'localhost' id
 
 grant all privileges on chat_app_test.* to 'chat_app_user'@'localhost' identified by 'P@ssw0rd';
 
+
+Please run the migrations after creating the databases:
+rails db:migrate
