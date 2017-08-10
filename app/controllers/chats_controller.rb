@@ -5,7 +5,7 @@ class ChatsController < ApplicationController
   def new
   	@message = Message.new(:message => "Hi! Let's chat.")
   	#for new chat
-    @ecc = existing_chat_clients(params[:id])
+    @ecc, @chat_ids = existing_chat_details(params[:id])
     if @ecc.blank?
       exclude_client_id_string = params[:id]
     else
@@ -52,7 +52,7 @@ class ChatsController < ApplicationController
     end
 
     #get the client ID comma separated string with which the currently logged in client
-  	@client_ids = existing_chat_clients(params[:id])
+  	@client_ids, @chat_ids = existing_chat_details(params[:id])
     @user_id = params[:id]
   	if @client_ids.blank?
   		#show that no chat
@@ -95,20 +95,28 @@ class ChatsController < ApplicationController
     ncc
   end
 
-  def existing_chat_clients(client_id)
-    chat_list_1 = Chat.select(:client2).chat_client1(client_id)
-    chat_list_2 = Chat.select(:client1).chat_client2(client_id)
+  def existing_chat_details(client_id)
+    chat_list_1 = Chat.select(:client2, :id).chat_client1(client_id)
+    chat_list_2 = Chat.select(:client1, :id).chat_client2(client_id)
+
+    @chat_ids = {}
+
     chat_list_1.each do |c|
       (@c_ids ||= []) << c.client2
+      @chat_ids[c.client2] = c.id
     end
     chat_list_2.each do |c|
       (@c_ids ||= []) << c.client1
+      @chat_ids[c.client1] = c.id
     end
+
     client_ids = ''
+    
     if !@c_ids.blank?
       client_ids = @c_ids.uniq.join(",")
     end
-    client_ids
+    
+    return client_ids, @chat_ids
   end
 
   def confirm_logged_in

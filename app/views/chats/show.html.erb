@@ -15,7 +15,7 @@
     
     <div>
     	<% name = cc.first_name+" "+cc.last_name+" ("+cc.client_type+")" %>
-    	<%= link_to(name, edit_chat_path(2)) %>
+    	<%= link_to(name, edit_chat_path(@chat_ids[cc.id])) %>
     </div>
     <hr>
     <% end %>
