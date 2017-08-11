@@ -28,8 +28,9 @@ class ChatsController < ApplicationController
     if chat.save
       m = chat.messages << message
       if m.blank?
+        chat.destroy
         flash[:error] = "Your message was not sent."
-        redirect_to(new_chat_path)
+        redirect_to(new_chat_path(:id => message.sender))
       else
         #message sent successfully. Show chat page
         receiver = Client.find_by_id(message.receiver)
@@ -40,7 +41,7 @@ class ChatsController < ApplicationController
     else
       #Chat could not be saved successfully
       flash[:error] = "Your chat was not sent."
-      redirect_to(new_chat_path)
+      redirect_to(new_chat_path(:id => message.sender))
     end
 
   end
